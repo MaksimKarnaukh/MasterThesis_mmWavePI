@@ -1,0 +1,11 @@
+matplotlib~=3.9.2
+torch~=2.5.1+cu118
+numpy~=2.1.3
+scikit-learn~=1.5.2
+jupyter
+openpyxl
+scipy~=1.14.1
+pandas~=2.2.3
+scapy
+dpkt
+sshpass
