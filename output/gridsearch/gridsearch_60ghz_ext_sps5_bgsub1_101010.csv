@@ -1,0 +1,161 @@
+seed,batch_size,lr,optimizer,model,model_params,mixup_alpha,smoothing_prob,best_val_acc,final_val_acc,test_acc,num_params
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.0,0.0,0.97,0.97,0.9,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.0,0.5,1.0,0.99,0.94,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.9,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.4,0.5,0.99,0.98,0.93,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.0,0.0,0.96,0.96,0.9,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.0,0.5,0.99,0.98,0.91,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.4,0.0,0.97,0.97,0.91,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.4,0.5,0.98,0.96,0.94,25031
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.0,0.0,0.99,0.99,0.91,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.0,0.5,1.0,0.99,0.91,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.4,0.0,0.99,0.97,0.88,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.4,0.5,0.99,0.98,0.94,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.0,0.0,0.98,0.96,0.9,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.0,0.5,1.0,1.0,0.93,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.4,0.0,0.98,0.97,0.91,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.4,0.5,0.98,0.96,0.94,50055
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.0,0.0,1.0,1.0,0.9,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.0,0.5,0.99,0.96,0.92,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.4,0.0,1.0,0.99,0.87,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.4,0.5,1.0,0.99,0.95,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.0,0.0,0.99,0.99,0.91,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.0,0.5,1.0,0.98,0.86,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.4,0.0,1.0,1.0,0.9,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.4,0.5,1.0,0.99,0.88,58311
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.0,0.0,0.98,0.98,0.9,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.0,0.5,0.98,0.98,0.89,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.4,0.0,1.0,0.99,0.9,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.4,0.5,1.0,1.0,0.98,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.0,0.0,0.99,0.99,0.87,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.0,0.5,0.99,0.99,0.92,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.4,0.0,1.0,0.98,0.92,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 64, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.4,0.5,1.0,1.0,0.9,149383
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.0,0.0,0.99,0.99,0.9,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.0,0.5,1.0,0.99,0.93,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.4,0.0,1.0,0.97,0.91,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.2}",0.4,0.5,0.99,0.98,0.93,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.0,0.0,0.99,0.98,0.89,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.0,0.5,1.0,1.0,0.95,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.4,0.0,0.99,0.99,0.88,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': False, 'dropout': 0.5}",0.4,0.5,0.99,0.99,0.93,82823
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.0,0.0,0.98,0.98,0.87,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.0,0.5,0.99,0.99,0.91,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.4,0.0,1.0,0.99,0.91,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.2}",0.4,0.5,0.99,0.99,0.9,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.0,0.0,0.98,0.98,0.89,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.0,0.5,1.0,1.0,0.88,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.4,0.0,1.0,0.99,0.89,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 1, 'bidirectional': True, 'dropout': 0.5}",0.4,0.5,0.99,0.98,0.86,165639
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.0,0.0,1.0,1.0,0.87,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.0,0.5,1.0,1.0,0.88,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.4,0.0,1.0,0.98,0.85,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.2}",0.4,0.5,0.99,0.99,0.95,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.0,0.0,0.99,0.99,0.86,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.0,0.5,0.99,0.98,0.9,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.4,0.0,1.0,0.99,0.85,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': False, 'dropout': 0.5}",0.4,0.5,1.0,0.99,0.95,214919
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.0,0.0,0.99,0.99,0.9,560903
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.0,0.5,1.0,1.0,0.91,560903
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.96,560903
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.2}",0.4,0.5,1.0,0.99,0.9,560903
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.0,0.0,0.98,0.97,0.91,560903
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.0,0.5,1.0,1.0,0.93,560903
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.4,0.0,1.0,1.0,0.92,560903
+101010,32,0.0007,adam,LSTM_HumanFi,"{'input_dim': 30, 'hidden_dim': 128, 'num_layers': 2, 'bidirectional': True, 'dropout': 0.5}",0.4,0.5,1.0,1.0,0.94,560903
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.2}",0.0,0.0,0.99,0.99,0.88,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.2}",0.0,0.5,0.98,0.98,0.92,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.96,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.2}",0.4,0.5,1.0,0.99,0.87,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.5}",0.0,0.0,0.98,0.98,0.91,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.5}",0.0,0.5,0.98,0.98,0.91,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.5}",0.4,0.0,1.0,0.98,0.97,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 2, 'dropout': 0.5}",0.4,0.5,1.0,0.97,0.9,73159
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.2}",0.0,0.0,0.98,0.98,0.83,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.2}",0.0,0.5,1.0,0.97,0.91,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.87,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.2}",0.4,0.5,1.0,1.0,0.9,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.5}",0.0,0.0,0.98,0.98,0.9,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.5}",0.0,0.5,0.98,0.98,0.87,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.5}",0.4,0.0,1.0,1.0,0.91,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128], 'kernel_size': 3, 'dropout': 0.5}",0.4,0.5,1.0,1.0,0.85,103751
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.2}",0.0,0.0,1.0,1.0,0.92,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.2}",0.0,0.5,1.0,1.0,0.89,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.96,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.2}",0.4,0.5,1.0,1.0,0.9,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.5}",0.0,0.0,0.98,0.98,0.93,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.5}",0.0,0.5,0.98,0.97,0.88,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.5}",0.4,0.0,1.0,0.97,0.95,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 2, 'dropout': 0.5}",0.4,0.5,1.0,0.98,0.97,139207
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.2}",0.0,0.0,0.99,0.98,0.91,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.2}",0.0,0.5,0.99,0.98,0.89,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.94,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.2}",0.4,0.5,1.0,0.97,0.87,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.5}",0.0,0.0,0.99,0.99,0.91,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.5}",0.0,0.5,0.98,0.98,0.91,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.5}",0.4,0.0,1.0,0.98,0.9,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 128], 'kernel_size': 3, 'dropout': 0.5}",0.4,0.5,1.0,0.98,0.9,202567
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.2}",0.0,0.0,0.99,0.99,0.83,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.2}",0.0,0.5,0.99,0.98,0.96,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.89,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.2}",0.4,0.5,1.0,1.0,0.96,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.5}",0.0,0.0,0.98,0.98,0.93,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.5}",0.0,0.5,1.0,1.0,0.87,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.5}",0.4,0.0,1.0,0.99,0.91,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 2, 'dropout': 0.5}",0.4,0.5,1.0,1.0,0.92,304711
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.2}",0.0,0.0,0.97,0.97,0.9,433607
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.2}",0.0,0.5,1.0,1.0,0.92,433607
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.2}",0.4,0.0,1.0,1.0,0.85,433607
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.2}",0.4,0.5,1.0,0.97,0.87,433607
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.5}",0.0,0.0,0.97,0.97,0.86,433607
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.5}",0.0,0.5,0.98,0.98,0.9,433607
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.5}",0.4,0.0,1.0,1.0,0.96,433607
+101010,32,0.0007,adam,TemporalConvNet,"{'num_inputs': 30, 'num_channels': [64, 128, 256], 'kernel_size': 3, 'dropout': 0.5}",0.4,0.5,1.0,0.99,0.86,433607
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 1}",0.0,0.0,1.0,1.0,0.92,85959
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 1}",0.0,0.5,1.0,1.0,0.87,85959
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 1}",0.4,0.0,1.0,0.99,0.99,85959
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 1}",0.4,0.5,1.0,0.99,0.95,85959
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 1}",0.0,0.0,0.99,0.99,0.97,73544
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 1}",0.0,0.5,0.99,0.99,0.89,73544
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 1}",0.4,0.0,1.0,0.99,0.96,73544
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 1}",0.4,0.5,1.0,0.99,0.99,73544
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 2}",0.0,0.0,1.0,1.0,0.9,185287
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 2}",0.0,0.5,1.0,1.0,0.88,185287
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 2}",0.4,0.0,1.0,0.98,0.93,185287
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 64, 'num_layers': 2}",0.4,0.5,0.99,0.99,0.88,185287
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 2}",0.0,0.0,0.99,0.99,0.92,172872
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 2}",0.0,0.5,1.0,1.0,0.91,172872
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 2}",0.4,0.0,1.0,0.99,0.98,172872
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 64, 'lstm_layers': 2}",0.4,0.5,1.0,1.0,0.93,172872
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 1}",0.0,0.0,0.99,0.99,0.86,268231
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 1}",0.0,0.5,1.0,1.0,0.99,268231
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 1}",0.4,0.0,1.0,1.0,0.93,268231
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 1}",0.4,0.5,1.0,0.99,0.95,268231
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 1}",0.0,0.0,1.0,1.0,0.88,206664
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 1}",0.0,0.5,1.0,1.0,0.92,206664
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 1}",0.4,0.0,1.0,0.99,0.86,206664
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 1}",0.4,0.5,1.0,0.99,0.98,206664
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 2}",0.0,0.0,1.0,1.0,0.89,663495
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 2}",0.0,0.5,1.0,1.0,0.9,663495
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 2}",0.4,0.0,1.0,1.0,0.91,663495
+101010,32,0.0007,adam,CNN_BiLSTM_Attention,"{'input_dim': 30, 'cnn_filters': 64, 'lstm_units': 128, 'num_layers': 2}",0.4,0.5,1.0,0.98,0.91,663495
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 2}",0.0,0.0,1.0,0.99,0.98,601928
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 2}",0.0,0.5,1.0,1.0,0.93,601928
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 2}",0.4,0.0,1.0,0.99,0.97,601928
+101010,32,0.0007,adam,CNN_BiLSTM_TemporalAttention,"{'input_dim': 30, 'cnn_channels': 64, 'lstm_hidden_dim': 128, 'lstm_layers': 2}",0.4,0.5,1.0,1.0,0.93,601928
+101010,32,0.0007,adam,OptResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.0,0.0,1.0,1.0,0.89,7025159
+101010,32,0.0007,adam,OptResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.0,0.5,1.0,1.0,0.72,7025159
+101010,32,0.0007,adam,OptResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.4,0.0,1.0,1.0,0.98,7025159
+101010,32,0.0007,adam,OptResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.4,0.5,1.0,1.0,0.91,7025159
+101010,32,0.0007,adam,OptECAResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.0,0.0,1.0,1.0,0.97,3610643
+101010,32,0.0007,adam,OptECAResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.0,0.5,1.0,1.0,0.83,3610643
+101010,32,0.0007,adam,OptECAResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.4,0.0,1.0,1.0,0.98,3610643
+101010,32,0.0007,adam,OptECAResNet1D_JARILWWF,"{'input_channels': 30, 'layers': [1, 1, 1, 1]}",0.4,0.5,1.0,1.0,0.95,3610643
+101010,32,0.0007,adam,CustomResNet1D,{'input_channels': 30},0.0,0.0,1.0,1.0,0.89,1872519
+101010,32,0.0007,adam,CustomResNet1D,{'input_channels': 30},0.0,0.5,1.0,1.0,0.92,1872519
+101010,32,0.0007,adam,CustomResNet1D,{'input_channels': 30},0.4,0.0,1.0,1.0,0.95,1872519
+101010,32,0.0007,adam,CustomResNet1D,{'input_channels': 30},0.4,0.5,1.0,1.0,0.92,1872519
+101010,32,0.0007,adam,CustomECAResNet1D,{'input_channels': 30},0.0,0.0,1.0,1.0,0.9,1872531
+101010,32,0.0007,adam,CustomECAResNet1D,{'input_channels': 30},0.0,0.5,1.0,1.0,0.96,1872531
+101010,32,0.0007,adam,CustomECAResNet1D,{'input_channels': 30},0.4,0.0,1.0,1.0,0.93,1872531
+101010,32,0.0007,adam,CustomECAResNet1D,{'input_channels': 30},0.4,0.5,1.0,1.0,0.96,1872531

@@ -1,3 +1,7 @@
+"""
+Helper functions for training and evaluating models, plotting results, gridsearch, and the experiments.
+"""
+
 import torch
 import time
 import random
@@ -9,7 +13,6 @@ from sklearn.metrics import classification_report, ConfusionMatrixDisplay, confu
 from typing import List, Tuple, Dict, Optional
 from itertools import product
 import pandas as pd
-
 from dataset import load_data, mixup_data, mixup_criterion, gaussian_smooth
 from settings import NUM_CLASSES, CRITERION, output_path, OPTIMIZER, LR, MIXUP_ALPHA, SMOOTHING_KERNEL_SIZE, SMOOTHING_SIGMA, NUM_EPOCHS, DEVICE, BATCH_SIZE, VAL_SPLIT, TEST_SPLIT, EARLY_STOPPING_PATIENCE, SMOOTHING_PROBABILITY
 
@@ -17,7 +20,7 @@ from settings import NUM_CLASSES, CRITERION, output_path, OPTIMIZER, LR, MIXUP_A
 def extract_signal_type(folder_path: str) -> str:
     """
     Extracts the signal type from a folder path.
-    Returns '5ghz_10hz' if the path ends with '5ghz', otherwise uses the folder name.
+    :param folder_path: Path to the folder containing the dataset.
     """
     folder_name: str = os.path.basename(os.path.normpath(folder_path))
     if folder_name.lower() == '5ghz':
@@ -70,7 +73,7 @@ def load_model_from_file(model, model_name: str, output_dir: str = output_path) 
     """
     model.load_state_dict(torch.load(os.path.join(output_dir, model_name)))
 
-def safe_str(val):
+def safe_str(val) -> str:
     """
     Convert a value to a safe string representation.
     Useful for torch.nn.Module objects.
@@ -88,8 +91,8 @@ def plot_loss_and_accuracy(train_loss_list_per_epoch,
                            val_loss_list,
                            val_accuracy_per_epoch,
                            train_accuracy_per_epoch,
-                           train_name_id,
-                           plot_output_path=output_path):
+                           train_name_id: str,
+                           plot_output_path: str = output_path) -> None:
     """
     Function to plot the training and validation loss and accuracy curves.
     :param train_loss_list_per_epoch: training loss per epoch
@@ -111,7 +114,7 @@ def plot_loss_and_accuracy(train_loss_list_per_epoch,
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(plot_output_path + f'train_val_loss_{train_name_id}.png')
-    # plt.show()
+    # plt.show() # if uncommented, can slow down the training significantly
     # plt.cla()
     plt.close()
 
@@ -126,21 +129,21 @@ def plot_loss_and_accuracy(train_loss_list_per_epoch,
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(plot_output_path + f'train_val_accuracy_{train_name_id}.png')
-    # plt.show()
+    # plt.show() # if uncommented, can slow down the training significantly
     plt.close()
 
 
 def train_model(model,
-                param_dict,
-                train_loader,
-                val_loader,
-                device,
-                output_dir=output_path,
-                verbose=1,
-                mixup=False,
-                smoothing_prob=0.0,
-                signal_type='5ghz_10hz',
-                early_stopping_patience=EARLY_STOPPING_PATIENCE,
+                param_dict: Dict[str, any],
+                train_loader: torch.utils.data.DataLoader,
+                val_loader: torch.utils.data.DataLoader,
+                device: torch.device,
+                output_dir: str = output_path,
+                verbose: int = 1,
+                mixup: bool = False,
+                smoothing_prob: float = 0.0,
+                signal_type: str = '5ghz_10hz',
+                early_stopping_patience: int = EARLY_STOPPING_PATIENCE,
                 background_subtraction: bool = False,
                 used_seed: int = None,
                 save_model: bool = True,
@@ -151,8 +154,17 @@ def train_model(model,
     :param param_dict: Dictionary of hyperparameters and their explicit values for this training run
     :param train_loader: DataLoader for training data
     :param val_loader: DataLoader for validation data
-    :param output_path: Path to save the plots
+    :param device: Device to train on (CPU or GPU)
+    :param output_dir: Directory to save the trained model and plots
     :param verbose: whether to print extra output, 0 for none, 1 for some, 2 for all
+    :param mixup: Whether to use mixup data augmentation
+    :param smoothing_prob: Probability of applying Gaussian smoothing to the input signals
+    :param signal_type: Type of the signal
+    :param early_stopping_patience: Number of epochs without improvement before stopping training
+    :param background_subtraction: Whether to apply background subtraction
+    :param used_seed: Seed used for this training run
+    :param save_model: Whether to save the trained model to a file
+    :param seconds_per_sample: Number of seconds per sample for the input signals
     :return: Trained model
     """
 
@@ -200,9 +212,6 @@ def train_model(model,
             optimizer.zero_grad()
             signals, labels = signals.to(device), labels.to(device)
 
-            # if torch.isnan(signals).any() or torch.isinf(signals).any():
-            #     raise "NaN or Inf detected in signals"
-
             if smoothing_prob > 0.0 and np.random.rand() < smoothing_prob:
                 signals = gaussian_smooth(signals, kernel_size=smoothing_kernel_size, sigma=smoothing_sigma)
 
@@ -212,9 +221,6 @@ def train_model(model,
                 loss = mixup_criterion(criterion, outputs, labels_a, labels_b, lam)
                 preds = torch.argmax(outputs, dim=1)
 
-                # all_preds.append(preds)
-                # all_labels.append(labels_a)
-
                 correct += (lam * preds.eq(labels_a).sum().item() +
                             (1 - lam) * preds.eq(labels_b).sum().item())
                 total += labels.size(0)
@@ -222,9 +228,6 @@ def train_model(model,
                 outputs = model(signals).to(device)
                 loss = criterion(outputs, labels)
                 preds = torch.argmax(outputs, dim=1)
-
-                # all_preds.append(preds)
-                # all_labels.append(labels)
 
                 correct += preds.eq(labels).sum().item()
                 total += labels.size(0)
@@ -236,11 +239,6 @@ def train_model(model,
 
         train_loss_list_per_epoch.append(np.mean(train_loss_list_per_itr))
         train_accuracy_per_epoch.append(correct / total)
-
-        # train_preds = torch.cat(all_preds).cpu()
-        # train_targets = torch.cat(all_labels).cpu()
-        # train_acc = (train_preds == train_targets).float().mean().item()
-        # train_accuracy_per_epoch.append(train_acc)
 
         eval_loss, eval_acc = evaluate_model(model, val_loader, criterion, device)
         val_loss_list_per_epoch.append(eval_loss)
@@ -282,7 +280,11 @@ def train_model(model,
     return model, max(val_accuracy_per_epoch), best_val_acc
 
 
-def evaluate_model(model, validation_loader, criterion, device, plot_confusion_matrix=False):
+def evaluate_model(model,
+                   validation_loader,
+                   criterion,
+                   device,
+                   plot_confusion_matrix: bool = False):
     """
     Function to evaluate the model.
 
@@ -331,10 +333,10 @@ def evaluate_model(model, validation_loader, criterion, device, plot_confusion_m
     return np.mean(val_loss), eval_acc
 
 
-def grid_search(param_grid,
-                folder_path,
-                device = DEVICE,
-                background_subtraction=False,
+def grid_search(param_grid: Dict[str, List],
+                folder_path: str,
+                device: torch.device = DEVICE,
+                background_subtraction: bool = False,
                 train_verbose=1,
                 seconds_per_sample=3,
                 rows_per_second=10,
@@ -350,6 +352,18 @@ def grid_search(param_grid,
 
     :param param_grid: Dictionary of parameter lists to search.
     :param folder_path: Path to the dataset folder.
+    :param device: Device to run the training on (CPU or GPU).
+    :param background_subtraction: Whether to apply background subtraction.
+    :param train_verbose: Verbosity level for training output.
+    :param seconds_per_sample: Number of seconds per sample for the input signals.
+    :param rows_per_second: Number of rows per second in the input signals.
+    :param num_classes: Number of classes in the dataset.
+    :param val_split: Fraction of data to use for validation.
+    :param test_split: Fraction of data to use for testing.
+    :param used_seed: Seed for reproducibility.
+    :param output_dir: Directory to save the results.
+    :param filename: gridsearch signal name used for the output file.
+    :param split_signal_stride: Stride for sliding window during data loading.
     :return: DataFrame summarizing results for each configuration.
     """
     results = []
@@ -462,12 +476,12 @@ def grid_search(param_grid,
 
     return results_df
 
-### Functions for learning curves and varying people experiments ###
+### Functions for learning curve and varying people experiments ###
 
 def get_learning_curve_data(model_class,
-                            model_args,
-                            folder_path,
-                            device,
+                            model_args: Dict[str, any],
+                            folder_path: str,
+                            device: torch.device,
                             train_splits: List[float],
                             seconds_per_sample: int = 5,
                             rows_per_second: int = 10,
@@ -481,7 +495,7 @@ def get_learning_curve_data(model_class,
                             background_subtraction: bool = True,
                             val_split: float = VAL_SPLIT,
                             test_split: float = TEST_SPLIT,
-                            signal_type='5ghz_10hz',
+                            signal_type: str = '5ghz_10hz',
                             used_seed: int = None) -> Tuple[List[float], List[float], List[float]]:
     """
     Runs training for various validation splits and returns training sizes and corresponding accuracies.
@@ -548,6 +562,10 @@ def plot_learning_curves(results_dict: Dict[str, Tuple[List[float], List[float]]
 
     :param results_dict: Dictionary where keys are labels (e.g., "5GHz") and values are (train_sizes, accuracies)
     :param std_dict: Optional dictionary with standard deviations matching keys in results_dict
+    :param output_path: Path to save the plot
+    :param filename: Name of the output file (without extension)
+    :param plot_title: Title of the plot
+    :param save_plot: Whether to save the plot to a file
     """
     plt.figure(figsize=(6.4, 4.8))
 
@@ -577,24 +595,27 @@ def plot_learning_curves(results_dict: Dict[str, Tuple[List[float], List[float]]
     plt.show()
 
 def get_varying_people_data(model_class,
-                            model_args,
-                            folder_path,
-                            device,
-                            people_counts,
-                            batch_size=32,
-                            num_epochs=NUM_EPOCHS,
-                            val_split=0.15,
-                            test_split=0.15,
-                            optimizer_name=OPTIMIZER,
-                            learning_rate=LR,
-                            smoothing_prob=SMOOTHING_PROBABILITY,
-                            mixup=True,
+                            model_args: Dict[str, any],
+                            folder_path: str,
+                            device: torch.device,
+                            people_counts: List[int],
+                            batch_size: int = 32,
+                            num_epochs: int = NUM_EPOCHS,
+                            val_split: float = 0.15,
+                            test_split: float = 0.15,
+                            optimizer_name: str = OPTIMIZER,
+                            learning_rate: float = LR,
+                            smoothing_prob: float = SMOOTHING_PROBABILITY,
+                            mixup: bool = True,
                             data_preprocessor=None,
-                            background_subtraction=True,
-                            signal_type='5ghz_10hz',
-                            seconds_per_sample=5,
-                            rows_per_second=10,
+                            background_subtraction: bool = True,
+                            signal_type: str = '5ghz_10hz',
+                            seconds_per_sample: int = 5,
+                            rows_per_second: int = 10,
                             used_seed: int = None) -> Tuple[List[int], List[float], List[float]]:
+    """
+    Runs training for various numbers of people and returns the number of people and corresponding accuracies.
+    """
 
     val_accuracies = []
     test_accuracies = []
@@ -658,7 +679,12 @@ def plot_people_vs_accuracy(results_dict: Dict[str, Tuple[List[int], List[float]
     """
     Plots bar plots comparing accuracy vs number of people for multiple signal types.
 
-    :param results_dict: Dictionary where keys are signal labels (e.g., "5GHz", "60GHz") and values are lists of (people_count, accuracy) tuples
+    :param results_dict: Dictionary where keys are signal labels (e.g., "5GHz", "60GHz") and values are (people_count, accuracy) tuples
+    :param std_dict: Optional dictionary with standard deviations matching keys in results_dict
+    :param output_path: Path to save the plot
+    :param filename: Name of the output file (without extension)
+    :param plot_title: Title of the plot
+    :param save_plot: Whether to save the plot to a file
     """
     signal_types = list(results_dict.keys())
     num_signal_types = len(signal_types)
@@ -737,7 +763,10 @@ def run_experiment_with_seeds(experiment_func,
     :param experiment_func: Function to run. Must return (x_values, y_values).
     :param signal_configs: Dictionary mapping signal name to a dict of kwargs for the experiment_func.
     :param varying_param_name: Name of the argument that changes per experiment (e.g., 'train_splits', 'people_counts').
+    :param varying_param_value: Value of the varying parameter to pass to the experiment_func.
     :param n_seeds: Number of seeds to run for averaging.
+    :param accuracy_type: Index of the accuracy in the output of the experiment_func.
+    :param seconds_per_sample: Number of seconds per sample for the input signals.
     :return: Tuple of (results_per_signal, stds_per_signal)
     """
     results_per_signal = {}
@@ -768,7 +797,7 @@ def run_experiment_with_seeds(experiment_func,
         print("seed outputs: ", seed_outputs)
 
         x_values = seed_outputs[0][0]
-        all_y_values = np.stack([out[accuracy_type] for out in seed_outputs], axis=0)  # shape: [n_seeds, len(x_values)]
+        all_y_values = np.stack([out[accuracy_type] for out in seed_outputs], axis=0) # -> [n_seeds, len(x_values)], if accuracy_type is 2, then y_values are the test accuracies
 
         mean_y = np.mean(all_y_values, axis=0)
         std_y = np.std(all_y_values, axis=0)
@@ -790,6 +819,8 @@ def run_gridsearch_with_seeds(gridsearch_func,
     :param gridsearch_func: Function to run.
     :param gridsearch_args: Arguments to the function.
     :param n_seeds: Number of seeds to run with.
+    :param output_dir: Directory to save the results.
+    :param filename: Base filename for the output CSV.
     :return: DataFrame with averaged results across seeds.
     """
 
@@ -809,7 +840,7 @@ def run_gridsearch_with_seeds(gridsearch_func,
         combined = combined.drop(columns=['seed']) # drop the seed column because it is unique per dataframe, meaning it will mess with the grouping
 
     metric_cols = ['best_val_acc', 'final_val_acc', 'test_acc']
-    group_cols = [col for col in combined.columns if col not in metric_cols] # list(combined.columns.difference(metric_cols))
+    group_cols = [col for col in combined.columns if col not in metric_cols]
 
     # compute both mean and std for each metric
     grouped = combined.groupby(group_cols).agg({
@@ -851,6 +882,7 @@ def evaluate_on_individual_file(model_class,
                                 rows_per_second: int = 10):
     """
     Loads a trained model and evaluates it on a single person's signal file.
+    This function technically doesn't belong here, but it's easy for the notebooks.
 
     :param model_class: Class of the model to load
     :param model_args: Arguments to instantiate the model
@@ -858,6 +890,10 @@ def evaluate_on_individual_file(model_class,
     :param npy_file_path: Path to the .npy file of the second-day recording
     :param label_index: Expected class index for the person (e.g., 14)
     :param device: Torch device
+    :param background_subtraction: Whether to apply background subtraction
+    :param data_preprocessor: Optional preprocessor function for the data
+    :param seconds_per_sample: Number of seconds per sample for the input signals
+    :param rows_per_second: Number of rows per second in the input signals
     :return: Accuracy on this specific file
     """
 
@@ -981,7 +1017,6 @@ def evaluate_on_multiple_files(model_class,
     load_model_from_file(model, model_path)
     model = model.to(device)
 
-    # Evaluate all at once with shared confusion matrix
     criterion = torch.nn.CrossEntropyLoss()
     _, acc = evaluate_model(model, loader, criterion, device, plot_confusion_matrix=True)
 

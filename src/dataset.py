@@ -1,11 +1,12 @@
+"""
+File containing the custom dataset for our signal classification, together with other functionality related to the dataset.
+"""
+
 import numpy as np
 import os
 import random
-
-# from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader, Dataset, random_split, Subset
 import torch
-import re
 import time
 from datetime import timedelta
 from collections import Counter
@@ -29,8 +30,13 @@ class SignalDataset(Dataset):
         Custom dataset for signal classification.
 
         :param folder_path: Path to the folder containing .npy files.
-        :param seconds_per_sample: Number of seconds per sample (default is 5).
+        :param seconds_per_sample: Number of seconds per sample.
         :param rows_per_second: Number of rows equalling one second of time in the signal.
+        :param data_preprocessor: Data preprocessor class object.
+        :param background_subtraction: Whether to subtract the background signal.
+        :param number_of_people: Number of people (classes) in the dataset.
+        :param sliding_window: Whether to use sliding window approach for splitting the signal.
+        :param stride: Stride for the sliding window.
         """
         self.data: List[np.ndarray] = []
         self.labels: np.ndarray | List[int] = []
@@ -77,7 +83,7 @@ class SignalDataset(Dataset):
             background_data.extend(split_samples)
 
         # background_data = np.stack(background_data, axis=0)
-        background_average: np.ndarray = np.mean(background_data, axis=0) # final shape: [self.rows_per_sample, antennas]
+        background_average: np.ndarray = np.mean(background_data, axis=0) # -> [self.rows_per_sample, antennas]
         # print(f"Background average shape: {background_average.shape}")
         return background_average
 
@@ -89,7 +95,6 @@ class SignalDataset(Dataset):
                      stride: int = 1) -> Tuple[List[np.ndarray], List[int]]:
         """
         Split the signal into chunks of rows_per_sample amount.
-
         :param signal: Input signal.
         :param label: Label for the signal.
         :param subtract_seq: Sequence to subtract from the signal.
@@ -100,7 +105,7 @@ class SignalDataset(Dataset):
         samples: List[np.ndarray] = []
         labels: List[int | str] = []
 
-        if sliding_window:
+        if sliding_window: # use sliding window approach, creating overlapping samples
             num_steps = (len(signal) - self.rows_per_sample) // stride + 1
             for i in range(0, num_steps * stride, stride):
                 sample = signal[i:i + self.rows_per_sample]
@@ -135,14 +140,14 @@ class SignalDataset(Dataset):
         return sample, label
 
 
-def load_data(folder_path,
-              seconds_per_sample=5,
-              rows_per_second=10,
-              batch_size=BATCH_SIZE,
-              val_split=VAL_SPLIT,
-              test_split=TEST_SPLIT,
+def load_data(folder_path: str,
+              seconds_per_sample: int = 5,
+              rows_per_second: int = 10,
+              batch_size: int = BATCH_SIZE,
+              val_split: float = VAL_SPLIT,
+              test_split: float = TEST_SPLIT,
               train_split: Optional[float] = None,
-              data_preprocessor=None,
+              data_preprocessor = None,
               background_subtraction: bool = False,
               number_of_people: int = NUM_CLASSES,
               verbose: int = 0,
@@ -159,6 +164,9 @@ def load_data(folder_path,
     :param train_split: Fraction of the entire dataset to use for training (after reserving validation and test splits per class).
     :param data_preprocessor: Data preprocessor function.
     :param background_subtraction: Whether to subtract the background signal.
+    :param number_of_people: Number of people (classes) in the dataset.
+    :param verbose: Verbosity level (0, 1, or 2).
+    :param split_signal_stride: Stride for the sliding window approach (0 means no sliding window used).
     :return: Train and validation data loaders.
     """
     if verbose > 0: print(f'Started loading data...')
@@ -196,7 +204,7 @@ def load_data(folder_path,
         val_indices.extend(indices[train_size_max:train_size_max + val_size])
         test_indices.extend(indices[train_size_max + val_size:])
 
-    # remove overlapping val/test samples if training used stride=1
+    # remove overlapping val/test samples if training used window sliding with stride=1
     if split_signal_stride == 1:
         val_indices = val_indices[::rows_per_second]
         test_indices = test_indices[::rows_per_second]
@@ -275,7 +283,7 @@ def mixup_criterion(criterion, pred, y_a, y_b, lam):
     return lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
 
 
-def gaussian_smooth(x, kernel_size=5, sigma=1.0):
+def gaussian_smooth(x: torch.Tensor, kernel_size: int = 5, sigma: float = 1.0) -> torch.Tensor:
     """
     Apply 1D Gaussian smoothing to a batch of input signals.
 
@@ -288,13 +296,13 @@ def gaussian_smooth(x, kernel_size=5, sigma=1.0):
     if not isinstance(x, torch.Tensor):
         x = torch.tensor(x, dtype=torch.float32)
 
-    # If input is 1D, reshape to [1, time_steps, 1] ([batch_size, time_steps, channels])
+    # if input is 1-dim, reshape to [batch_size=1, time_steps, channels=1]
     d3_original = True
     if x.dim() == 1:
-        x = x.unsqueeze(0).unsqueeze(-1)  # Shape: [1, time_steps, 1]
+        x = x.unsqueeze(0).unsqueeze(-1)
         d3_original = False
     elif x.dim() == 2:
-        x = x.unsqueeze(-1)  # Add a channels dimension if missing
+        x = x.unsqueeze(-1)
         d3_original = False
 
     # swap time_steps and channels -> [batch_size, channels, time_steps]
@@ -302,22 +310,20 @@ def gaussian_smooth(x, kernel_size=5, sigma=1.0):
 
     kernel_size = min(kernel_size, x.shape[-1])
 
-    # create a Gaussian kernel
+    # Gaussian kernel
     kernel = torch.arange(kernel_size) - kernel_size // 2
     kernel = torch.exp(-0.5 * (kernel / sigma)**2)
     kernel /= kernel.sum()
 
     # expand the kernel to match the number of input channels
-    num_channels = x.shape[1]  # Get number of channels (30)
+    num_channels = x.shape[1]
     kernel = kernel.view(1, 1, -1).repeat(num_channels, 1, 1).to(x.device)
 
-    # padding to maintain the same size, ensure padding is not larger than half the input size
-    padding = min(kernel_size // 2, x.shape[-1] // 2)
-    x_padded = F.pad(x, (padding, padding), mode='constant', value=0)  # Use zero-padding
+    # padding to maintain the same size
+    padding: int = min(kernel_size // 2, x.shape[-1] // 2)
+    x_padded = F.pad(x, (padding, padding), mode='constant', value=0) # zero-padding
 
-    # apply convolution (depthwise convolution)
-    smoothed = F.conv1d(x_padded, kernel, groups=x.shape[1])
-
+    smoothed: torch.Tensor = F.conv1d(x_padded, kernel, groups=x.shape[1])
     smoothed = smoothed.transpose(1, 2)
 
     if not d3_original:
@@ -338,27 +344,22 @@ def gaussian_smooth_scipy(x, sigma=1.0):
     :return: Smoothed tensor
     """
 
-    # check if x is a torch tensor, since we need to apply operations on it
     if not isinstance(x, torch.Tensor):
         x = torch.tensor(x, dtype=torch.float32)
 
-    # If input is 1D, reshape to [1, time_steps, 1] ([batch_size, time_steps, channels])
     d3_original = True
     if x.dim() == 1:
-        x = x.unsqueeze(0).unsqueeze(-1)  # Shape: [1, time_steps, 1]
+        x = x.unsqueeze(0).unsqueeze(-1)
         d3_original = False
     elif x.dim() == 2:
-        x = x.unsqueeze(-1)  # Add a channels dimension if missing
+        x = x.unsqueeze(-1)
         d3_original = False
 
     # swap time_steps and channels -> [batch_size, channels, time_steps]
     x = x.transpose(1, 2)
 
-    # apply Gaussian smoothing
     smoothed = gaussian_filter1d(x, sigma=sigma, axis=-1, mode='reflect')
-
     smoothed = torch.tensor(smoothed, dtype=torch.float32)
-
     smoothed = smoothed.transpose(1, 2)
 
     if not d3_original:
@@ -366,7 +367,12 @@ def gaussian_smooth_scipy(x, sigma=1.0):
 
     return smoothed
 
+
 def test():
+    """
+    Manually test the gaussian_smooth and gaussian_smooth_scipy functions.
+    :return:
+    """
     from scipy.ndimage import gaussian_filter1d
     import numpy as np
     nd_array = torch.tensor([[[1], [2], [3], [4], [5]]], dtype=torch.float32)
