@@ -15,7 +15,7 @@ import numpy as np
 import struct
 import os
 
-data_folder = "./csi_collection/packet_data/"
+data_folder = "./csi_collection/input/"
 output_folder = "./csi_collection/output/"
 
 def remove_last_packet(filename: str, new_filename: str) -> None:
