@@ -71,7 +71,7 @@ def Parse_csi(lines: List[str]) -> Tuple[np.ndarray, np.ndarray, List[float], Li
 
     return magnitudes, phases, times, bad_idxs
 
-def get_next_line(file: str) -> Tuple[Optional[np.ndarray], Optional[np.ndarray], Optional[datetime], Optional[List[int]]]:
+def get_next_line(file) -> Tuple[Optional[np.ndarray], Optional[np.ndarray], Optional[datetime], Optional[List[int]]]:
     """
     Reads the next line from the file and parses it to extract magnitude, phase, timestamp, and bad indices.
     This is an external function not made by us.
@@ -579,225 +579,19 @@ if __name__ == "__main__":
     target_rate = 10  # packets per second
 
     # Process 5GHz and 60GHz walking data for all persons
-    # for idx, person in enumerate(os.listdir(data_folder_5ghz_walking)):
-    #     if os.path.isdir(os.path.join(data_folder_5ghz_walking, person)):
-    #         process_person(person, idx, data_folder_5ghz_walking, data_folder_60ghz_walking, target_rate)
+    for idx, person in enumerate(os.listdir(data_folder_5ghz_walking)):
+        if os.path.isdir(os.path.join(data_folder_5ghz_walking, person)):
+            process_person(person, idx, data_folder_5ghz_walking, data_folder_60ghz_walking, target_rate)
 
-    # # Process 5GHz and 60GHz background data
-    # for idx, person in enumerate(os.listdir(data_folder_5ghz_background)):
-    #     if os.path.isdir(os.path.join(data_folder_5ghz_background, person)):
-    #         process_person(person, idx, data_folder_5ghz_background, data_folder_60ghz_background, target_rate)
+    # Process 5GHz and 60GHz background data
+    for idx, person in enumerate(os.listdir(data_folder_5ghz_background)):
+        if os.path.isdir(os.path.join(data_folder_5ghz_background, person)):
+            process_person(person, idx, data_folder_5ghz_background, data_folder_60ghz_background, target_rate)
 
-
-    import matplotlib.pyplot as plt
-
-    data_5ghz = np.load('data/collected_csi_data_original_processed/5ghz/xinlei_2025-03-12_5ghz_walkarrayuser_20.npy')
-    print(data_5ghz.shape)
-    print(data_5ghz[0])
+    # data_5ghz = np.load('data/collected_csi_data_original_processed/5ghz/xinlei_2025-03-12_5ghz_walkarrayuser_20.npy')
+    # print(data_5ghz.shape)
+    # print(data_5ghz[0])
     #
     # data_60ghz = np.load('data/collected_csi_data_original_processed/60ghz/andre_2025-03-12_60ghz_walkarrayuser_1.npy')
     # print(data_60ghz.shape)
     # print(data_60ghz[0])
-    #
-    # data_60ghz_13 = data_60ghz[:, :30]
-    # data_60ghz_17 = data_60ghz[:, 30:]
-    #
-    # avg_5ghz = np.mean(data_5ghz, axis=1)
-    # avg_60ghz_13 = np.mean(data_60ghz_13, axis=1)
-    # avg_60ghz_17 = np.mean(data_60ghz_17, axis=1)
-    #
-    # # avg_60ghz = avg_60ghz[:, :30]
-    #
-    # # Plotting
-    # plt.figure(figsize=(12, 5))
-    #
-    # plt.plot(avg_5ghz, label="5 GHz (avg per time step)", alpha=0.8)
-    #
-    # plt.title("Average CSI Amplitude per Time Step")
-    # plt.xlabel("Time Step")
-    # plt.ylabel("Average Amplitude")
-    # plt.legend()
-    # plt.grid(True)
-    # plt.tight_layout()
-    # plt.show()
-    #
-    # plt.figure(figsize=(12, 5))
-    #
-    # plt.plot(avg_60ghz_13, label="60 GHz (13 GHz avg per time step)", alpha=0.8)
-    # plt.plot(avg_60ghz_17, label="60 GHz (17 GHz avg per time step)", alpha=0.6)
-    #
-    # plt.title("Average CSI Amplitude per Time Step")
-    # plt.xlabel("Time Step")
-    # plt.ylabel("Average Amplitude")
-    # plt.legend()
-    # plt.grid(True)
-    # plt.tight_layout()
-    # plt.show()
-    #
-    # import numpy as np
-    # import matplotlib.pyplot as plt
-    #
-    #
-    # def detect_gait_segments(csi_data: np.ndarray,
-    #                          window_size: int = 10,
-    #                          phi_var_factor: float = 0.9,
-    #                          buffer_len: int = 3,
-    #                          tlen_threshold: int = 1,
-    #                          beta_threshold: float = 0.1,
-    #                          plot: bool = True):
-    #     """
-    #     Detects gait start and end indices based on CSI signal variance.
-    #     Based on the method described in the provided paper section.
-    #
-    #     :param csi_data: [timesteps, subcarriers] amplitude data
-    #     :param window_size: number of packets in each non-overlapping sliding window
-    #     :param phi_var: variance threshold for detecting walking
-    #     :param buffer_len: how many consecutive low-variance windows are allowed before stopping detection
-    #     :param tlen_threshold: minimum duration for valid walking segment
-    #     :param beta_threshold: average variance threshold for rejecting weak interference segments
-    #     :param plot: whether to generate a plot
-    #     :return: list of (start_idx, end_idx) tuples
-    #     """
-    #     num_windows = len(csi_data) // window_size
-    #     variances = []
-    #
-    #     for t in range(num_windows):
-    #         window = csi_data[t * window_size: (t + 1) * window_size]
-    #         mean_per_subcarrier = np.mean(window, axis=0)
-    #         var = np.mean((window - mean_per_subcarrier) ** 2)
-    #         variances.append(var)
-    #
-    #     avg_variance = np.mean(variances)
-    #     phi_var = phi_var_factor * avg_variance
-    #     print(f"Average variance: {avg_variance:.4f}")
-    #
-    #     gait_segments = []
-    #     buffer = 0
-    #     start = False
-    #     start_idx = None
-    #
-    #     for t, var in enumerate(variances):
-    #         if var > phi_var and not start:
-    #             start = True
-    #             start_idx = t
-    #         elif var > phi_var and start:
-    #             buffer = 0
-    #         elif var < phi_var and start:
-    #             if buffer > buffer_len:
-    #                 end_idx = t
-    #                 start = False
-    #                 gait_segments.append((start_idx, end_idx))
-    #             else:
-    #                 buffer += 1
-    #
-    #     filtered_segments = []
-    #     for start_t, end_t in gait_segments:
-    #         j = end_t - start_t
-    #         segment_mean_var = np.mean(variances[start_t:end_t])
-    #         if j >= tlen_threshold or segment_mean_var >= beta_threshold:
-    #             filtered_segments.append((start_t, end_t))
-    #
-    #     if plot:
-    #         plt.figure(figsize=(12, 5))
-    #         avg_amplitudes = np.mean(csi_data, axis=1)
-    #         plt.plot(avg_amplitudes, label="Average Amplitude")
-    #
-    #         for start_t, end_t in filtered_segments:
-    #             plt.axvline(start_t * window_size, color='green', linestyle='--', label='Gait Start')
-    #             plt.axvline(end_t * window_size, color='red', linestyle='--', label='Gait End')
-    #
-    #         plt.title("Gait Detection Based on Variance")
-    #         plt.xlabel("Time Index")
-    #         plt.ylabel("Amplitude")
-    #         plt.grid(True)
-    #         plt.tight_layout()
-    #         plt.show()
-    #
-    #     return filtered_segments
-    #
-    #
-    # segments = detect_gait_segments(data_60ghz[:, :30][:100], window_size=2, phi_var_factor=1.05)
-    #
-    #
-    # def detect_gait_with_background(walk_data: np.ndarray,
-    #                                 background_data: np.ndarray,
-    #                                 window_size: int = 10,
-    #                                 threshold_std_factor: float = 2.0,
-    #                                 min_segment_windows: int = 2,
-    #                                 plot: bool = True):
-    #     """
-    #     Detects gait segments in CSI data using variance thresholding based on a background reference signal.
-    #
-    #     Parameters:
-    #     - walk_data: ndarray [timesteps, subcarriers], the CSI amplitude data with walking
-    #     - background_data: ndarray [timesteps, subcarriers], background CSI data without walking
-    #     - window_size: number of timesteps per non-overlapping window
-    #     - threshold_std_factor: how many standard deviations above background variance mean is considered walking
-    #     - min_segment_windows: minimum number of consecutive high-variance windows to be considered a valid segment
-    #     - plot: whether to plot the signal and detected segments
-    #
-    #     Returns:
-    #     - List of (start_idx, end_idx) tuples indicating detected gait segments
-    #     """
-    #
-    #     def compute_window_variances(data, win_size):
-    #         num_windows = len(data) // win_size
-    #         variances = []
-    #         for i in range(num_windows):
-    #             window = data[i * win_size:(i + 1) * win_size]
-    #             mean_sub = np.mean(window, axis=0)
-    #             var = np.mean((window - mean_sub) ** 2)
-    #             variances.append(var)
-    #         return np.array(variances)
-    #
-    #     bg_variances = compute_window_variances(background_data, window_size)
-    #     bg_mean = np.mean(bg_variances)
-    #     bg_std = np.std(bg_variances)
-    #     threshold = bg_mean + threshold_std_factor * bg_std
-    #     print(f"[Threshold] Background mean: {bg_mean:.4f}, std: {bg_std:.4f}, threshold: {threshold:.4f}")
-    #
-    #     walk_variances = compute_window_variances(walk_data, window_size)
-    #
-    #     is_walking = walk_variances > threshold
-    #
-    #     gait_segments = []
-    #     start = None
-    #     for i, active in enumerate(is_walking):
-    #         if active and start is None:
-    #             start = i
-    #         elif not active and start is not None:
-    #             if i - start >= min_segment_windows:
-    #                 gait_segments.append((start, i))
-    #             start = None
-    #     if start is not None and (len(is_walking) - start >= min_segment_windows):
-    #         gait_segments.append((start, len(is_walking)))
-    #
-    #     if plot:
-    #         avg_amplitude = np.mean(walk_data, axis=1)
-    #         plt.figure(figsize=(12, 5))
-    #         plt.plot(avg_amplitude, label="Avg Amplitude (Walk Signal)", alpha=0.8)
-    #
-    #         for start_win, end_win in gait_segments:
-    #             plt.axvline(start_win * window_size, color='green', linestyle='--', label='Gait Start')
-    #             plt.axvline(end_win * window_size, color='red', linestyle='--', label='Gait End')
-    #
-    #         plt.title("Gait Detection using Background Variance Threshold")
-    #         plt.xlabel("Time Step")
-    #         plt.ylabel("Average CSI Amplitude")
-    #         plt.grid(True)
-    #         # plt.legend()
-    #         plt.tight_layout()
-    #         plt.show()
-    #
-    #     return gait_segments
-    #
-    #
-    # background_60ghz = np.load('data/collected_csi_data_original_processed/60ghz/background_2025-03-13_60ghz_backgroundarrayuser_1.npy')
-    # segments = detect_gait_with_background(
-    #     walk_data=data_60ghz[:, :30][:100],
-    #     background_data=background_60ghz[:, :30],
-    #     window_size=5,
-    #     threshold_std_factor=4.0,
-    #     min_segment_windows=2,
-    #     plot=True
-    # )
