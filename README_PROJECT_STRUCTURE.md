@@ -71,10 +71,10 @@ This contains the aligned, synchronized, and resampled CSI data, used directly f
 
 Subfolders:
 
-- `5ghz/`: Downsampled to 10 Hz to match mmWave sampling rate
-- `5ghz_200hz/`: High-rate CSI at 200 Hz, available for 18 participants
+- `5ghz/`: Downsampled to 10 Hz to match mmWave sampling rate; 52 subcarrier values
+- `5ghz_200hz/`: High-rate 5 GHz CSI at 200 Hz, available for 18 participants
   - 2 participants had low original sampling rate (~30 Hz), so were excluded here
-- `60ghz/`: 10 Hz
+- `60ghz/`: 10 Hz; 60 antenna values per frame (30+30 antennas because of the X-formation of the 4 devices)
 
 All processed files are stored in .npy format
 
@@ -83,7 +83,7 @@ This folder contains a private mmWave-only dataset collected independently on 60
 This dataset is used primarily to evaluate the potential of mmWave CSI in a different environment.
 
 - Participants: 7 individuals
-- Sampling rate: ~22 Hz
+- Sampling rate: 22 Hz
 - CSI format: Amplitude-only, 30 antennas per frame
 - Data: Includes walking trajectories and background samples
 
