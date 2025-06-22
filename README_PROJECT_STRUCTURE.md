@@ -37,7 +37,7 @@ root/
 │
 ├── src/ 
 │   ├── models/ # Implemented model architectures 
-│   ├── _main_exp_<experiment_type>.ipynb # main experiment notebook for each experiment type (3 files in total)
+│   ├── _main_exp_<experiment_type>.ipynb # main experiment notebook for each (special) experiment type (3 files in total)
 │   ├── _main_gridsearch_<signal_type>.ipynb # main gridsearch notebook for each signal type (5GH@10Hz, 5GH@200Hz, collected 60GHz, external 60GHz)
 │   ├── dataset.py # dataset class for loading CSI data
 │   ├── helper_functions.py # helper functions for the project, including training and validation loops
@@ -100,7 +100,7 @@ Each folder, except for the `gridsearch/` folder, contains the results for all s
 - `60ghz_collected/`
 - `60ghz_external/`
 
-Aside from that, the `plots/` folder contains all plots from the 3 experiments (learning curve analysis, varying people analysis and cross-session evaluation).
+Aside from that, the `plots/` folder contains all plots from the 3 special experiments (learning curve analysis, varying people analysis and cross-session evaluation).
 
 The naming convention for the files w.r.t. the used model, parameters, etc. is as follows:
 
