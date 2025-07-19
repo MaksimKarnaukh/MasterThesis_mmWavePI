@@ -94,14 +94,3 @@ The figures below show the device placement during data collection:
 ![floor plan of setup for data collection](./_misc/setup_floor_plan.drawio.png)
 
 ---
-
-## Citation of the paper
-
-```
-@...{karnaukh2025mmwave,
-  title     = {Comparative Study of Person Identification Using Sub-6 GHz and mmWave Wi-Fi CSI},
-  author    = {Your Name},
-  year      = {2025},
-  ...
-}
-```
