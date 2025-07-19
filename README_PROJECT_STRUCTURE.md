@@ -57,7 +57,7 @@ Below is a breakdown of what each folder represents:
 This folder contains the raw CSI recordings from our own multi-modal dataset.
 - Frequency bands: Both 5 GHz (sub-6) and 60 GHz (mmWave)
 - Participants: Data from 20 participants, collected over 3 days (the filenames contain the exact dates)
-- Procedure: Each participant walked continuously for 2 minutes, following a round-trip walking path (walk back and forth)
+- Procedure: Each participant walked continuously for around 2 minutes, following a round-trip walking path (walk back and forth)
 
 Subfolders:
 
