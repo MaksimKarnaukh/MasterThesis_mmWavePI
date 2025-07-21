@@ -109,7 +109,7 @@ class ECAResNet1D(nn.Module):
 
     def __init__(self, block, layers, input_channels=52, num_classes=20, k_size=(3, 3, 3, 3)):
         """
-        ECA-ResNet1D model for activity classification.
+        ECA-ResNet1D model
         :param block:
         :param layers:
         :param input_channels:
@@ -149,7 +149,7 @@ class ECAResNet1D(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        x = x.transpose(1, 2)  # [B, L, C] -> [B, C, L]
+        x = x.transpose(1, 2) # [B, L, C] -> [B, C, L]
 
         x = self.conv1(x)
         x = self.bn1(x)
@@ -265,7 +265,7 @@ class ResNet1D_JARILWWF(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        x = x.transpose(1, 2)  # (B, Time, Channels) → (B, Channels, Time)
+        x = x.transpose(1, 2) # (B, L, C) -> (B, C, L)
 
         x = self.conv1(x)
         x = self.bn1(x)
@@ -354,7 +354,7 @@ class OptResNet1D_JARILWWF(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        x = x.transpose(1, 2)  # [B, L, C] → [B, C, L]
+        x = x.transpose(1, 2) # [B, L, C] → [B, C, L]
         x = self.stem(x)
 
         x = self.layer1(x)
@@ -403,7 +403,7 @@ class OptECAResNet1D_JARILWWF(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        x = x.transpose(1, 2)  # [B, L, C] → [B, C, L]
+        x = x.transpose(1, 2) # [B, L, C] → [B, C, L]
         x = self.stem(x)
 
         x = self.layer1(x)
@@ -494,7 +494,7 @@ class CustomResNet1D(nn.Module):
 
     def __init__(self, input_channels, num_classes):
         """
-        Residual CNN-based model for activity classification.
+        Residual CNN-based model
 
         """
         super(CustomResNet1D, self).__init__()
@@ -532,7 +532,7 @@ class CustomECAResNet1D(nn.Module):
 
     def __init__(self, input_channels, num_classes):
         """
-        Residual CNN-based model for activity classification with ECA attention.
+        Residual CNN-based model with ECA attention.
 
         """
         super(CustomECAResNet1D, self).__init__()

@@ -203,7 +203,6 @@ def train_model(model,
 
         model.train()
         train_loss_list_per_itr: List[float] = []
-        # all_preds, all_labels = [], []
 
         correct = 0.0
         total = 0
