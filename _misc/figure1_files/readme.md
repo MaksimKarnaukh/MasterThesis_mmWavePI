@@ -1,0 +1,1 @@
+Everything related to the editing of 'Figure 1' in the joint paper is stored here.
