@@ -7,6 +7,7 @@ The files are as follows:
 - `setup2_adapted.photoshop.pdf`: Photoshop file of the edited jpg of the setup with layers
 - `setup2_adapted_no_labels.jpg`: edited jpg of the setup with drawn walking path on the photo, without labels
 - `setup2_adapted_without_walkingpath.jpg`: edited jpg of the setup without drawn walking path on the photo
+- `setup_floor_plan_correctednotation.drawio.png`: corrected floor plan of the setup with notation '5 GHz'
 ---
 - `setup_slide.pdf`: slide with the edited setup figure with drawn walking path, next to floor plan; in pdf format
 - `setup_slide.pptx`: PowerPoint slide with the edited setup figure with drawn walking path, next to floor plan
