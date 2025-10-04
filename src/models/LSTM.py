@@ -8,13 +8,8 @@ class LSTM_HumanFi(nn.Module):
 
     def __init__(self, input_dim, hidden_dim, num_classes, num_layers=1, dropout=0.2, bidirectional=False):
         """
-        Initialize the LSTM-based classifier.
+        LSTM classifier, based on HumanFi model from: https://ieeexplore.ieee.org/document/9060326
 
-        Parameters:
-        - input_dim: Number of features (e.g., 30 for subcarriers).
-        - hidden_dim: Number of hidden units in LSTM.
-        - num_classes: Number of classes (e.g., 3 for background, stand, walk).
-        - num_layers: Number of LSTM layers.
         """
         super(LSTM_HumanFi, self).__init__()
 
@@ -55,7 +50,7 @@ class CNN_LSTM(nn.Module):
             nn.Conv1d(in_channels=input_channels, out_channels=conv_channels, kernel_size=5, padding=2),
             nn.BatchNorm1d(conv_channels),
             nn.ReLU(),
-            nn.MaxPool1d(kernel_size=2),  # Halves the time dimension
+            nn.MaxPool1d(kernel_size=2),
         )
 
         self.bidirectional = bidirectional
@@ -73,16 +68,16 @@ class CNN_LSTM(nn.Module):
         # x: [B, T, C] → [B, C, T]
         x = x.transpose(1, 2)
         x = self.cnn(x)
-        x = x.transpose(1, 2)  # back to [B, T, C] for LSTM
+        x = x.transpose(1, 2)
 
-        # LSTM expects (B, T, F)
         lstm_out, _ = self.lstm(x)
-        out = lstm_out[:, -1, :]  # Use last time step
+        out = lstm_out[:, -1, :]
         return self.fc(out)
 
 ###############################################################################################################
 
 class CNN_BiLSTM_TemporalAttention(nn.Module):
+
     def __init__(self, input_dim, cnn_channels, lstm_hidden_dim, lstm_layers, num_classes):
         super().__init__()
         self.cnn = nn.Sequential(
@@ -102,11 +97,12 @@ class CNN_BiLSTM_TemporalAttention(nn.Module):
         x = x.transpose(1, 2) # [B, T, C']
         lstm_out, _ = self.lstm(x) # [B, T, 2H]
         weights = F.softmax(self.attn(lstm_out), dim=1) # [B, T, 1]
-        attended = (weights * lstm_out).sum(dim=1) # [B, 2H]
+        attended = (weights * lstm_out).sum(dim=1)
         return self.fc(attended)
 
 
 class CNN_BiLSTM_ChannelAttention(nn.Module):
+
     def __init__(self, input_dim, cnn_channels, lstm_hidden_dim, lstm_layers, num_classes):
         super().__init__()
         self.cnn = nn.Conv1d(input_dim, cnn_channels, kernel_size=3, padding=1)
@@ -129,9 +125,9 @@ class CNN_BiLSTM_ChannelAttention(nn.Module):
         feat = self.cnn(x) # [B, C', T]
 
         # Channel attention
-        pooled = self.global_pool(feat).squeeze(-1)  # [B, C']
-        scale = self.channel_attn(pooled).unsqueeze(-1)  # [B, C', 1]
-        feat = feat * scale  # [B, C', T]
+        pooled = self.global_pool(feat).squeeze(-1)
+        scale = self.channel_attn(pooled).unsqueeze(-1)
+        feat = feat * scale
 
         x = feat.transpose(1, 2) # [B, T, C']
         lstm_out, _ = self.lstm(x)
@@ -139,6 +135,7 @@ class CNN_BiLSTM_ChannelAttention(nn.Module):
         return self.fc(output)
 
 class CNN_BiLSTM_DualAttention(nn.Module):
+
     def __init__(self, input_dim, cnn_channels, lstm_hidden_dim, lstm_layers, num_classes):
         super().__init__()
         self.cnn = nn.Conv1d(input_dim, cnn_channels, kernel_size=3, padding=1)
@@ -193,6 +190,8 @@ class Attention3DBlock(nn.Module):
 class CNN_BiLSTM_Attention(nn.Module):
     """
     CNN-BiLSTM-Attention model based on Keras implementation from the SOH prediction paper.
+    Paper source: https://journals.sagepub.com/doi/full/10.1177/17483026221130598
+    Code source: https://github.com/alishbaimran/Attention-based-CNN-BiLSTM-Battery-SOH-Prediction
     """
 
     def __init__(self, input_dim, num_classes, cnn_filters=64, lstm_units=128, dropout=0.3, num_layers=1):
@@ -216,11 +215,11 @@ class CNN_BiLSTM_Attention(nn.Module):
 
     def forward(self, x):
         # x: [B, T, C]
-        x = x.transpose(1, 2)  # -> [B, C, T]
-        x = self.cnn(x)        # -> [B, C', T]
-        x = x.transpose(1, 2)  # -> [B, T, C']
+        x = x.transpose(1, 2) # -> [B, C, T]
+        x = self.cnn(x) # -> [B, C', T]
+        x = x.transpose(1, 2) # -> [B, T, C']
 
-        lstm_out, _ = self.lstm(x)  # [B, T, 2 * H]
+        lstm_out, _ = self.lstm(x) # [B, T, 2 * H]
         attended = self.attention(lstm_out) # [B, T, 2H]
         out = attended[:, -1, :] # attended.mean(dim=1)
 

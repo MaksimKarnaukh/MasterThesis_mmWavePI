@@ -7,7 +7,7 @@ class ECALayer1D(nn.Module):
     """
     1D Efficient Channel Attention (ECA) Layer adapted for 1D convolutional inputs.
 
-    https://github.com/BangguWu/ECANet/blob/master/models/eca_module.py
+    Source: https://github.com/BangguWu/ECANet/blob/master/models/eca_module.py
     """
     def __init__(self, channel, k_size=3):
         super(ECALayer1D, self).__init__()
@@ -17,7 +17,7 @@ class ECALayer1D(nn.Module):
 
     def forward(self, x):
         # x: [B, C, L]
-        y = self.avg_pool(x)  # [B, C, 1]
-        y = self.conv(y.transpose(-1, -2))  # [B, 1, C] -> conv -> [B, 1, C]
-        y = self.sigmoid(y.transpose(-1, -2))  # [B, C, 1]
+        y = self.avg_pool(x)
+        y = self.conv(y.transpose(-1, -2))
+        y = self.sigmoid(y.transpose(-1, -2))
         return x * y.expand_as(x)
