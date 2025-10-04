@@ -108,7 +108,7 @@ def check_all_times(file: str) -> None:
 
 def combine_out13_and_out17_one_pass(out13: str, out17: str, combined_csv: str) -> str:
     """
-    Combines (aligns) `out13` and `out17` CSV files by matching timestamps within a 1-second threshold.
+    Combines (aligns) `out13` (= first antenna pair) and `out17` (= second antenna pair) CSV files by matching timestamps within a 1-second threshold.
     Returns the path to the combined CSV file.
     :param out13: out13 CSV file path
     :param out17: out17 CSV file path
@@ -278,7 +278,7 @@ def get_csi_data_5ghz(pcap_file: str, delta: float) -> Tuple[Optional[np.ndarray
     try:
         # sometimes the reader fails to properly read the last (corrupted) packet, but acts as if everything was fine.
         # The result is that the size of the csi_data returned by the reader is less than the reader.pcap.framecount.
-        # In this case, we remove the last packet manually here ( (un)comment below )
+        # In this case, we remove the last packet manually here ( (un)comment line below )
         remove_last_packet(pcap_file)
         csi_data = reader.read_file(pcap_file, scaled=True)
     except (struct.error, ValueError):
