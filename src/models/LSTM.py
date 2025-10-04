@@ -176,7 +176,7 @@ class CNN_BiLSTM_DualAttention(nn.Module):
 
 class Attention3DBlock(nn.Module):
     """
-    3D attention mechanism over LSTM outputs (time step attention).
+    3D attention mechanism over LSTM outputs (time step attention). Used in CNN_BiLSTM_Attention.
     """
     def __init__(self, feature_dim):
         super(Attention3DBlock, self).__init__()
