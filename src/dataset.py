@@ -232,7 +232,7 @@ def load_data(folder_path: str,
 def mixup_data(x, y, alpha=0.4, use_cuda=True):
     """
     Apply mixup augmentation.
-    https://arxiv.org/pdf/1710.09412
+    Paper source: https://arxiv.org/pdf/1710.09412
     https://github.com/facebookresearch/mixup-cifar10/blob/main/train.py
 
     Parameters:

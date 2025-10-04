@@ -54,7 +54,7 @@ class ECABottleneckBlock1D(nn.Module):
     """
     1D Bottleneck block with Efficient Channel Attention (ECA).
     """
-    expansion = 4  # Matches the ResNet bottleneck design
+    expansion = 4 # Matches the ResNet bottleneck design
 
     def __init__(self, in_channels, out_channels, stride=1, downsample=None, k_size=3):
         super(ECABottleneckBlock1D, self).__init__()
